@@ -1,0 +1,102 @@
+<odoo>
+    <record id="library_book_list" model="ir.ui.view">
+        <field name="name">Book.list</field>
+        <field name="model">library.book</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="author"/>
+                <field name="publication_date"/>
+                <field name="state"/>
+                <field name="borrow_count"/>
+
+
+            </list>
+        </field>
+    </record>
+    <record id="library_book_form" model="ir.ui.view">
+         <field name="name">Book.form</field>
+         <field name="model">library.book</field>
+         <field name="arch" type="xml">
+             <form>
+                 <sheet>
+                     <group>
+                          <field name="name"/>
+                          <field name="author"/>
+                          <field name="isbn"/>
+                     </group>
+                     <group>
+                         <field name="publication_date"/>
+                         <field name="state"/>
+                         <field name="borrow_ids"/>
+                         <field name="borrow_count"/>
+                     </group>
+                 </sheet>
+             </form>
+         </field>
+    </record>
+     <record id="library_book_search" model="ir.ui.view">
+        <field name="name">Book.search</field>
+        <field name="model">library.book</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="author"/>
+                <field name="isbn"/>
+
+                <filter name="filter_Book_Draft" string="Draft Book" domain="[('state' ,'=' ,'draft')]"/>
+                <filter name="filter_Book_Available" string="Available Book" domain="[('state', '=',  'available')]"/>
+                <filter name="filter_Book_Borrowed" string="Borrowed Book" domain="[('state' ,'=' ,'borrowed')]"/>
+                <filter name="filter_Book_Lost" string="Lost Book" domain="[('state', '=',  'lost')]"/>
+
+
+            </search>
+        </field>
+    </record>
+    <record id="library_book_kanban" model="ir.ui.view">
+        <field name="name">library.book.kanban</field>
+        <field name="model">library.book</field>
+        <field name="arch" type="xml">
+            <kanban>
+
+                <field name="name"/>
+                <field name="author"/>
+                <field name="isbn"/>
+                <field name="state"/>
+                <field name="publication_date"/>
+                <templates>
+                    <t t-name="card">
+                       <strong>
+                           <field name="name"/>
+                       </strong>
+                        <div>
+                            Author:
+                            <field name="author"/>
+                        </div>
+                        <div>
+                            Isbn:
+                            <field name="isbn"/>
+                        </div>
+                          <div>
+                        Status:
+                        <field name="state"/>
+                        </div>
+                        <div>
+                        Publication Date:
+                        <field name="publication_date"/>
+                        </div>
+
+                    </t>
+                </templates>
+
+            </kanban>
+
+        </field>
+    </record>
+    <record id="book_action" model="ir.actions.act_window">
+        <field name="name">Books</field>
+        <field name="res_model">library.book</field>
+        <field name="view_mode">kanban,list,form</field>
+    </record>
+
+</odoo>

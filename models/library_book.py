@@ -30,18 +30,15 @@ class LibraryBook(models.Model):
         for record in self:
             record.borrow_count = len(record.borrow_ids)
 
-    _sql_constraints = [
-        (
-            'isbn_unique',
-            'UNIQUE(isbn)',
-            'ISBN must be unique.'
-        ),
-    ]
+    _isbn_unique = models.Constraint(
+        'UNIQUE(isbn)',
+        'ISBN must be unique.'
+    )
 
     def get_available_books(self):
        books = self.env['library.book'].search([('state', '=', 'available')])
        return books
-    def create_books(self):
+    def create_book(self):
        new_books= self.env['library.book'].create({'name':'Clean Code','author':'Robert Martin','isbn':'9780132350884'})
        return new_books
 
