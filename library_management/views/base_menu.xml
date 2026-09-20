@@ -1,5 +1,5 @@
 <odoo>
-    <menuitem id="library_root_menu" name="Library"/>
+        <menuitem id="library_root_menu" name="Library"/>
 
         <menuitem id="book_menu" name="Books" parent="library_root_menu" action="book_action"/>
         <menuitem id="library_action_menu" name="Borrows" parent="library_root_menu" action="library_borrow_action"/>

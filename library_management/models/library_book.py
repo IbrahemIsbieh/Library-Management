@@ -38,15 +38,21 @@ class LibraryBook(models.Model):
     def get_available_books(self):
        books = self.env['library.book'].search([('state', '=', 'available')])
        return books
-    def create_book(self):
-       new_books= self.env['library.book'].create({'name':'Clean Code','author':'Robert Martin','isbn':'9780132350884'})
-       return new_books
+
+    @api.model_create_multi
+    def create(self, vals_list):
+        res = super(LibraryBook, self).create(vals_list)
+        return res
 
     def borrow_book(self):
         book =self.env['library.book'].search([('name', '=', 'Clean Code')], limit=1)
         book.write({'state':'borrowed'})
         return book
 
-    def delete_book(self):
-        book=self.env['library.book'].search([('name', '=', 'Clean Code')], limit=1)
-        book.unlink()
+    def write(self, vals):
+        res = super(LibraryBook, self).write(vals)
+        return res
+
+    def unlink(self):
+        res =super(LibraryBook,self).unlink()
+        return res
