@@ -38,6 +38,7 @@
                          <field name="borrow_count"/>
                      </group>
                  </sheet>
+                 <chatter/>
              </form>
          </field>
     </record>

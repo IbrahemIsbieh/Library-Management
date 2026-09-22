@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="borrow_report" model="ir.actions.report">
+        <field name="name">Library Borrowing Receipt</field>
+        <field name="model">library.borrow</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">library_management.library_borrow_report_template</field>
+        <field name="report_file">library_management.library_borrow_report_template</field>
+        <field name="binding_model_id" ref="model_library_borrow"/>
+        <field name="binding_type">report</field>
+
+    </record>
+
+    <template id="library_borrow_report_template">
+        <t t-name="library_management.library_borrow_report_template">
+
+            <t t-call="web.html_container">
+
+                <t t-foreach="docs" t-as="doc">
+
+                    <t t-call="web.external_layout">
+
+                        <div class="page">
+
+                            <h2>Library Borrowing Receipt</h2>
+
+                            <br/>
+
+                            <p>
+                                <strong>Book:</strong>
+                                <span t-field="doc.book_id.name"/>
+                            </p>
+
+                            <p>
+                                <strong>Author:</strong>
+                                <span t-field="doc.book_id.author"/>
+                            </p>
+
+                            <p>
+                                <strong>Member:</strong>
+                                <span t-field="doc.member_id.name"/>
+                            </p>
+
+                            <p>
+                                <strong>Borrow Date:</strong>
+                                <span t-field="doc.borrow_date"/>
+                            </p>
+
+                            <p>
+                                <strong>Return Date:</strong>
+                                <span t-field="doc.return_date"/>
+                            </p>
+
+                        </div>
+
+                    </t>
+
+                </t>
+
+            </t>
+
+        </t>
+    </template>
+
+
+</odoo>

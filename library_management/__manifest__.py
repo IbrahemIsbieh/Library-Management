@@ -9,6 +9,7 @@
         'views/base_menu.xml',
         'views/library_borrow_view.xml',
         'views/library_book_view.xml',
+        'views/library_borrow_report.xml',
 
     ],
     'installable': True,
