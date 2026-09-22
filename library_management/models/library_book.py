@@ -15,7 +15,7 @@ class LibraryBook(models.Model):
             ('lost', 'Lost'),
         ],
         string='Status',
-        default='available',
+        default='draft',
         tracking=True
     )
     borrow_ids = fields.One2many('library.borrow', 'book_id', string='Borrowed')
@@ -34,6 +34,20 @@ class LibraryBook(models.Model):
         'UNIQUE(isbn)',
         'ISBN must be unique.'
     )
+    def action_draft(self):
+        for rec in self:
+            rec.state = 'draft'
+
+    def action_available(self):
+        for rec in self:
+            rec.state = 'available'
+
+    def action_borrowed(self):
+        for rec in self:
+            rec.state = 'borrowed'
+    def action_lost(self):
+        for rec in self:
+            rec.state = 'lost'
 
     def get_available_books(self):
        books = self.env['library.book'].search([('state', '=', 'available')])

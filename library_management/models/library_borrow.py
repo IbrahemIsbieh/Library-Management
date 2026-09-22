@@ -1,6 +1,9 @@
 from odoo import models, fields ,api
 from datetime import timedelta
 from odoo.exceptions import ValidationError
+import logging
+
+_logger = logging.getLogger(__name__)
 
 class LibraryBorrow(models.Model):
     _name = 'library.borrow'
@@ -21,7 +24,10 @@ class LibraryBorrow(models.Model):
             raise ValidationError('This book cannot be borrowed')
 
     def _check_lost(self):
+        _logger.info("Checking borrowed books for lost status")
         limit_date =fields.Date.today() - timedelta(days=30)
         borrow_date = self.search([('borrow_date', '<=', limit_date)])
+        _logger.info("Found %s old borrow records", len(borrow_date))
         for borrow_date in borrow_date:
             borrow_date.book_id.write({'state': 'lost'})
+            _logger.info("Book %s marked as lost", borrow_date.book_id.name)
